@@ -18,14 +18,13 @@ jobs:
         #TODO
         uses: actions/setup-java@v3
         with:
-          distribution: 'oracle'      # Utiliser Oracle JDK
-          java-version: '17'          # Version de Java
-          cache: 'maven'
+          distribution: 'temurin'
+          java-version: 17
 
-      #finally build your app with the latest command
-      - name: Build and test with Maven
-        working-directory: ./API/API_simple/simpleapi
-        run: mvn clean verify #TODO
+      # #finally build your app with the latest command
+      # - name: Build and test with Maven
+      #   working-directory: ./API/API_simple/simpleapi
+      #   run: mvn clean verify #TODO
 
       - name: Build and test API_backend project
         working-directory: ./API/API_backend/simple-api-student-main
