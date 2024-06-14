@@ -24,4 +24,9 @@ jobs:
 
       #finally build your app with the latest command
       - name: Build and test with Maven
+        working-directory: ../../API/API_simple
         run: mvn clean verify #TODO
+
+      - name: Build and test API_backend project
+        working-directory: ../../API/API_backend
+        run: mvn clean verify
