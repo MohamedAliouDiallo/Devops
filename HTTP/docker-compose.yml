@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+    backend:
+        image: api_bakend_image
+        build:
+            context: ../API/API_backend/simple-api-student-main
+        networks:
+            - my-network
+        depends_on:
+            - database 
+        container_name: api_backend_container
+    database:
+        image : my_postgres_image:14.1-alpine
+        build:
+            context : ../BDD/
+        environment:
+            POSTGRES_DB: db
+            POSTGRES_USER: usr
+            POSTGRES_PASSWORD: pwd
+        networks:
+            - my-network
+        volumes:
+            - /my/own/datadir:/var/lib/postgresql/data
+        container_name: my_postgres_container
+    httpd:
+        image: my_new_http_image
+        build:
+            context: ./
+        ports:
+            - "80:80"
+        networks:
+            - my-network
+        depends_on:
+                - backend
+        container_name: my_new_http_container
+networks:
+    my-network:
