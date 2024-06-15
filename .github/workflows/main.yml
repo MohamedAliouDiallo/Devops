@@ -23,7 +23,7 @@ jobs:
 
       - name: Build and test API_backend project
         # working-directory: ./API/API_backend/simple-api-student-main
-        run: mvn -B verify sonar:sonar -Dsonar.projectKey=devops-tp2_projet -Dsonar.organization=devops-tp2 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}  --file ./API/API_backend/simple-api-student-main/pom.xml
+        run: mvn -B verify sonar:sonar -Dsonar.projectKey=MohamedAliouDiallo_Devops -Dsonar.organization=devops-organisation-tp2 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}  --file ./API/API_backend/simple-api-student-main/pom.xml
       
   # define job to build and publish docker image
   build-and-push-docker-image:
