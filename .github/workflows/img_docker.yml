@@ -14,8 +14,8 @@ jobs:
 
     # steps to perform in job
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2.5.0
+      # - name: Checkout code
+      #   uses: actions/checkout@v2.5.0
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
