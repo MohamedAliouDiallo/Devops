@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v2.5.0
 
       - name: Login to DockerHub
-        run: docker login -u ${{ secrets.DOCKER_HUB_LOGIN }} -p ${{ secrets.DOCKER_HUB_PWD }}
+        run: winpty docker login -u ${{ secrets.DOCKER_HUB_LOGIN }} -p ${{ secrets.DOCKER_HUB_PWD }}
 
       - name: Build image and push backend
         uses: docker/build-push-action@v3
