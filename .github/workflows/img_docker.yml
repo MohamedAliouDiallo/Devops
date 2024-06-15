@@ -17,13 +17,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2.5.0
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_LOGIN }}
-          password: ${{ secrets.DOCKER_PASSSWORD }}
-      # - name: Login to DockerHub
-      #   run: docker login -u ${{ secrets.DOCKER_LOGIN }} -p ${{ secrets.DOCKER_PASSSWORD }}
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKER_LOGIN }} -p ${{ secrets.DOCKER_PASSSWORD }}
 
       - name: Build image and push backend
         uses: docker/build-push-action@v3
