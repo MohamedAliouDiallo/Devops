@@ -1,0 +1,72 @@
+name: CI devops 2024
+on:
+  #to begin you want to launch this job in main and develop
+  push:
+    branches: #TODO 
+    - main
+  pull_request:
+
+jobs:
+  test-backend: 
+    runs-on: ubuntu-22.04
+    steps:
+     #checkout your github code using actions/checkout@v2.5.0
+      - uses: actions/checkout@v2.5.0
+
+     #do the same with another action (actions/setup-java@v3) that enable to setup jdk 17
+      - name: Set up JDK 17
+        #TODO
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Build and test API_backend project
+        working-directory: ./API/API_backend/simple-api-student-main
+        run: mvn clean verify
+      
+  # define job to build and publish docker image
+  build-and-push-docker-image:
+    needs: test-backend
+    # run only when code is compiling and tests are passing
+    runs-on: ubuntu-22.04
+
+    # steps to perform in job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2.5.0
+
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKER_LOGIN }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build image and push backend
+        uses: docker/build-push-action@v3
+        with:
+          # relative path to the place where source code with Dockerfile is located
+          context: ./API/API_backend/simple-api-student-main
+          # Note: tags has to be all lower-case
+          tags:  ${{secrets.DOCKER_LOGIN}}/api_backend_image:3.8.6-amazoncorretto-17
+          # build on feature branches, push only on main branch
+          push: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Build image and push database
+          # DO the same for database
+        uses: docker/build-push-action@v3
+        with:
+          # relative path to the place where source code with Dockerfile is located
+          context: ./BDD
+          # Note: tags has to be all lower-case
+          tags:  ${{secrets.DOCKER_LOGIN}}/my_postgres_image:14.1-alpine
+          # build on feature branches, push only on main branch
+          push: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Build image and push httpd
+        # DO the same for httpd
+        uses: docker/build-push-action@v3
+        with:
+          # relative path to the place where source code with Dockerfile is located
+          context: ./HTTP
+          # Note: tags has to be all lower-case
+          tags:  ${{secrets.DOCKER_LOGIN}}/my_new_http_image:2.4
+          # build on feature branches, push only on main branch
+          push: ${{ github.ref == 'refs/heads/main' }}
