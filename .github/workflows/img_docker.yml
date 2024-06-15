@@ -18,6 +18,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2.5.0
 
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKER_HUB_LOGIN }} -p ${{ secrets.DOCKER_HUB_PWD }}
+
       - name: Build image and push backend
         uses: docker/build-push-action@v3
         with:
@@ -49,6 +52,3 @@ jobs:
           tags:  ${{secrets.DOCKER_HUB_LOGIN}}/juuug/my_new_http_image:2.4
           # build on feature branches, push only on main branch
           push: ${{ github.ref == 'refs/heads/main' }}
-
-      - name: Login to DockerHub
-        run: docker login -u ${{ secrets.DOCKER_HUB_LOGIN }} -p ${{ secrets.DOCKER_HUB_PWD }}
