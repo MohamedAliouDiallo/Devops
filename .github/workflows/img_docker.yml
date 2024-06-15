@@ -9,7 +9,7 @@ on:
 jobs:
   # define job to build and publish docker image
   build-and-push-docker-image:
-    needs: test-backend
+    needs: CI-devops-2024
     # run only when code is compiling and tests are passing
     runs-on: ubuntu-22.04
 
