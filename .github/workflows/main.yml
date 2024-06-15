@@ -21,11 +21,6 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      # #finally build your app with the latest command
-      # - name: Build and test with Maven
-      #   working-directory: ./API/API_simple/simpleapi
-      #   run: mvn clean verify #TODO
-
       - name: Build and test API_backend project
         working-directory: ./API/API_backend/simple-api-student-main
         run: mvn clean verify
