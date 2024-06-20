@@ -1,30 +1,26 @@
 - name: Install device-mapper-persistent-data
-  dnf:
+  yum:
     name: device-mapper-persistent-data
     state: latest
-    use_backend: dnf4
 
 - name: Install lvm2
-  dnf:
+  yum:
     name: lvm2
     state: latest
-    use_backend: dnf4
 
 - name: add repo docker
   command:
-    cmd: sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+    cmd: sudo yum-config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 
 - name: Install Docker
-  dnf:
+  yum:
     name: docker-ce
     state: present
-    use_backend: dnf4
 
 - name: Install python3
-  dnf:
+  yum:
     name: python3
     state: present
-    use_backend: dnf4
 
 - name: Install docker with Python 3
   pip:
