@@ -94,4 +94,4 @@ jobs:
 
       - name: Deploy with Ansible
         run: |
-          ansible-playbook -i ansible/inventories/setup.yml ansible/playbook.yml
+          ansible-playbook -i ansible/inventories/setup.yml ansible/playbook.yml -e ansible_python_interpreter=/usr/bin/python3
