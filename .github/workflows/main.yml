@@ -83,7 +83,7 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: ./ansible/playbook.yml  # Chemin playbook Ansible
-          inventory: ./ansible/inventories/setup.yml  # Chemin fichier inventories
+          inventories: ./ansible/inventories/setup.yml  # Chemin fichier inventories
           options: -v  # print details execution
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # Clé privée SSH
 
@@ -94,8 +94,8 @@ jobs:
           ansible-galaxy install -r  # Installer les rôles et collections depuis requirements.yml
 
       - name: Test SSH Connectivity
-        run: ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no centos@julie.gaydon.takima.cloud "echo SSH connection successful"
+        run: ssh -i ~/.ssh/id_rsa centos@julie.gaydon.takima.cloud "echo SSH connection successful"
 
       - name: Deploy with Ansible
         run: |
-          ansible-playbook -i ansible/inventory ansible/playbook.yml
+          ansible-playbook -i ansible/inventories/setup.yml ansible/playbook.yml
