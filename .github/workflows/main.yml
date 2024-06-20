@@ -86,7 +86,7 @@ jobs:
 
       - name: Install dnf and other prerequisites
         run: |
-          sudo dnf install dnf
+          sudo apt-get install dnf
           sudo dnf install -y ansible
 
       - name: Test SSH Connectivity
