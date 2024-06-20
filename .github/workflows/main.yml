@@ -73,7 +73,9 @@ jobs:
 
   deploy:
     # needs: build-and-push-docker-image
-    runs-on: centos-latest
+     runs-on: ubuntu-latest
+     container:
+      image: centos:latest
 
     steps:
       - name: Checkout code
