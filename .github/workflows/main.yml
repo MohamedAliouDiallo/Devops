@@ -91,7 +91,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ansible
-          ansible-galaxy install -r  # Installer les rôles et collections depuis requirements.yml
 
       - name: Test SSH Connectivity
         run: ssh -i ~/.ssh/id_rsa centos@julie.gaydon.takima.cloud "echo SSH connection successful"
