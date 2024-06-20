@@ -72,7 +72,7 @@ jobs:
           push: ${{ github.ref == 'refs/heads/main' }}
 
   deploy:
-    needs: build-and-push-docker-image
+    # needs: build-and-push-docker-image
     runs-on: ubuntu-latest
 
     steps:
@@ -82,8 +82,8 @@ jobs:
       - name: Set up Ansible
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          playbook: ansible/playbook.yml  # Chemin playbook Ansible
-          inventory: ansible/inventories/setup.yml  # Chemin fichier inventories
+          playbook: ./ansible/playbook.yml  # Chemin playbook Ansible
+          inventory: ./ansible/inventories/setup.yml  # Chemin fichier inventories
           options: -v  # print details execution
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # Clé privée SSH
 
