@@ -93,7 +93,7 @@ jobs:
           sudo apt-get install -y ansible
 
       - name: Test SSH Connectivity
-        run: ssh -i ${{ secrets.SSH_PRIVATE_KEY }} centos@julie.gaydon.takima.cloud "echo SSH connection successful"
+        run: ssh -o StrictHostKeyChecking=no centos@julie.gaydon.takima.cloud "echo SSH connection successful"
 
       - name: Deploy with Ansible
         run: |
