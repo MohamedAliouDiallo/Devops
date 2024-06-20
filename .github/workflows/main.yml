@@ -72,6 +72,7 @@ jobs:
           push: ${{ github.ref == 'refs/heads/main' }}
 
   deploy:
+    needs: build-and-push-docker-image
     runs-on: ubuntu-latest
 
     steps:
@@ -86,8 +87,15 @@ jobs:
         options: -v  # print details execution
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # Clé privée SSH
 
-    - name: Install Ansible and Dependencies
+     name: Install Ansible and Dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y ansible
-        ansible-galaxy install -r  # Installer les rôles
+        ansible-galaxy install -r  # Installer les rôles et collections depuis requirements.yml
+
+    - name: Test SSH Connectivity
+      run: ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no centos@julie.gaydon.takima.cloud "echo SSH connection successful"
+
+    - name: Deploy with Ansible
+      run: |
+        ansible-playbook -i ansible/inventory ansible/playbook.yml
