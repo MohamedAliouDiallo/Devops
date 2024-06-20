@@ -84,6 +84,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Install dnf and other prerequisites
+        run: |
+          sudo yum install -y dnf
+          sudo dnf install -y ansible
+
       - name: Install Ansible
         run: |
           sudo apt-get update

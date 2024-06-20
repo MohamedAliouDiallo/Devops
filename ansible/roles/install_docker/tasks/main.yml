@@ -2,11 +2,13 @@
   dnf:
     name: device-mapper-persistent-data
     state: latest
+    use_backend: dnf4
 
 - name: Install lvm2
   dnf:
     name: lvm2
     state: latest
+    use_backend: dnf4
 
 - name: add repo docker
   command:
@@ -16,11 +18,13 @@
   dnf:
     name: docker-ce
     state: present
+    use_backend: dnf4
 
 - name: Install python3
   dnf:
     name: python3
     state: present
+    use_backend: dnf4
 
 - name: Install docker with Python 3
   pip:
