@@ -70,3 +70,24 @@ jobs:
           tags:  ${{secrets.DOCKER_LOGIN}}/my_new_http_image:2.4
           # build on feature branches, push only on main branch
           push: ${{ github.ref == 'refs/heads/main' }}
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Ansible
+      uses: dawidd6/action-ansible-playbook@v2
+      with:
+        playbook: ansible/playbook.yml  # Chemin playbook Ansible
+        inventory: ansible/inventories/setup.yml  # Chemin fichier inventories
+        options: -v  # print details execution
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # Clé privée SSH
+
+    - name: Install Ansible and Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ansible
+        ansible-galaxy install -r  # Installer les rôles
