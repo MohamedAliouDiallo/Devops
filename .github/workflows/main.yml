@@ -86,13 +86,8 @@ jobs:
 
       - name: Install dnf and other prerequisites
         run: |
-          sudo yum install -y dnf
+          sudo dnf install dnf
           sudo dnf install -y ansible
-
-      - name: Install Ansible
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ansible
 
       - name: Test SSH Connectivity
         run: ssh -o StrictHostKeyChecking=no centos@julie.gaydon.takima.cloud "echo SSH connection successful"
