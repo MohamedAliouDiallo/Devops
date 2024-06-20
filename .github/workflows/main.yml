@@ -79,21 +79,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Ansible
-        uses: dawidd6/action-ansible-playbook@v2
+      - name: Set up SSH key
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-          playbook: ./ansible/playbook.yml  # Chemin playbook Ansible
-          inventories: ./ansible/inventories/setup.yml  # Chemin fichier inventories
-          options: -v  # print details execution
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # Clé privée SSH
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Install Ansible and Dependencies
+      - name: Install Ansible
         run: |
           sudo apt-get update
           sudo apt-get install -y ansible
 
       - name: Test SSH Connectivity
-        run: ssh centos@julie.gaydon.takima.cloud
+        run: ssh -o StrictHostKeyChecking=no centos@julie.gaydon.takima.cloud "echo SSH connection successful"
 
       - name: Deploy with Ansible
         run: |
