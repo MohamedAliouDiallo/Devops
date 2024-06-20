@@ -1,0 +1,13 @@
+---
+# tasks file for roles/launch_app
+
+- name: Run Backend Application Container
+  docker_container:
+    name: api_backend_container
+    image: juuug/api_backend_image:3.8.6-amazoncorretto-17
+    env:
+      DATABASE_URL: jdbc:postgresql://my_postgres_container:5432/db
+    networks:
+      - name: my_network
+    ports:
+      - "8080:80"

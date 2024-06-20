@@ -1,0 +1,16 @@
+---
+# tasks file for roles/create_network
+- name: Create Docker network
+  docker_network:
+    name: my_network
+    state: present
+
+- name: Run HTTPD Container
+  docker_container:
+    name: httpd
+    image: juuug/my_new_http_image:2.4
+    ports:
+      - "8081:80"
+    networks:
+      - name: my_network
+

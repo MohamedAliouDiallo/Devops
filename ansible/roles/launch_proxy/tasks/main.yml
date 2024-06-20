@@ -1,0 +1,13 @@
+---
+# tasks file for roles/launch_proxy
+
+- name: Run Proxy Container
+  docker_container:
+    name: proxy
+    image: httpd:latest
+    volumes:
+      - /home/HTTP/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    networks:
+      - name: my_network
+    ports:
+      - "80:80"

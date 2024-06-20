@@ -1,0 +1,15 @@
+---
+# tasks file for roles/launch_database
+
+- name: Run Database Container
+  docker_container:
+    name: my_postgres_container
+    image: juuug/my_postgres_image:14.1-alpine
+    env:
+      POSTGRES_USER: usr
+      POSTGRES_PASSWORD: pwd
+      POSTGRES_DB: db
+    networks:
+      - name: my_network
+    ports:
+      - "5432:5432"
