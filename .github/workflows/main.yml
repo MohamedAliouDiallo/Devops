@@ -70,30 +70,3 @@ jobs:
           tags:  ${{secrets.DOCKER_LOGIN}}/my_new_http_image:2.4
           # build on feature branches, push only on main branch
           push: ${{ github.ref == 'refs/heads/main' }}
-
-  deploy:
-    # needs: build-and-push-docker-image
-     runs-on: ubuntu-latest
-     container:
-      image: centos:latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up SSH key
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Install dnf and other prerequisites
-        run: |
-          sudo apt-get install dnf
-          sudo dnf install -y ansible
-
-      - name: Test SSH Connectivity
-        run: ssh -o StrictHostKeyChecking=no centos@julie.gaydon.takima.cloud "echo SSH connection successful"
-
-      - name: Deploy with Ansible
-        run: |
-          ansible-playbook -i ansible/inventories/setup.yml ansible/playbook.yml -e ansible_python_interpreter=/usr/bin/python3
