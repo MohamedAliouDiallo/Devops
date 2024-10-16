@@ -1,2 +1,2 @@
-# simple-api-devopsss
+# simple-api-devops
 
